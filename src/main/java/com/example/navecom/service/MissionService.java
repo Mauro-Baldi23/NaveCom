@@ -12,14 +12,10 @@ public class MissionService {
     private final KafkaTemplate<String, Long> kafkaTemplateLong;
     private final KafkaTemplate<String, Object> kafkaTemplateObject;
 
-    String fscTopic;
-
-
     public void sendMissionId(Long missionId) {
         kafkaTemplateLong.send("cl-topic", missionId);
 
     }
-
 
     public void sendFSC(FuelStationRequest dto) {
         kafkaTemplateObject.send("fsc-topic", dto);
