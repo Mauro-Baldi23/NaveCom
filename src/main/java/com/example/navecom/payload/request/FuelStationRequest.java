@@ -1,14 +1,13 @@
-package com.example.navecom.dto;
+package com.example.navecom.payload.request;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class FuelStationDTO {
+public class FuelStationRequest {
 
     private String nomeNave;
     private String nomeRotta;
-
 
 }

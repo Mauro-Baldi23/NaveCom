@@ -1,8 +1,10 @@
 package com.example.navecom.controller;
 
-import com.example.navecom.dto.FuelStationDTO;
+import com.example.navecom.payload.request.FuelStationRequest;
 import com.example.navecom.service.MissionService;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @Controller
 @RequestMapping("/navecom")
+@Validated
 public class ControllerV1 {
 
     private final MissionService missionService;
@@ -23,15 +26,14 @@ public class ControllerV1 {
         return ResponseEntity.ok("Mission ID sent: " + missionId);
     }
 
-
     @GetMapping("/checkRotta/{missionId}")
     public ResponseEntity<String> checkRotta(@RequestParam long missionId) {
         missionService.sendRotta(missionId);
         return ResponseEntity.ok("Rotta inviata: " + missionId);
-
+    }
 
     @GetMapping("/fscontrol")
-    public void getFSControl(FuelStationDTO dto) {
+    public void getFSControl(@Valid @RequestBody FuelStationRequest dto) {
         missionService.sendFSC(dto);
     }
 }

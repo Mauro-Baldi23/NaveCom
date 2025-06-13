@@ -1,25 +1,33 @@
 package com.example.navecom.service;
 
+import com.example.navecom.payload.request.FuelStationRequest;
+import lombok.RequiredArgsConstructor;
+import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.stereotype.Service;
+
+@Service
+@RequiredArgsConstructor
 public class MissionService {
 
-    private final KafkaTemplate<String, Long> kafkaTemplate;
+    private final KafkaTemplate<String, Long> kafkaTemplateLong;
+    private final KafkaTemplate<String, Object> kafkaTemplateObject;
+
     String fscTopic;
 
-    private KafkaTemplate<String, Object> kafkaTemplate;
 
     public void sendMissionId(Long missionId) {
-        kafkaTemplate.send("cl-topic", missionId);
-        }
+        kafkaTemplateLong.send("cl-topic", missionId);
 
-    public void sendFSC(FuelStationDTO dto) {
-        kafkaTemplate.send(fscTopic, dto);
     }
 
 
-    private final KafkaTemplate<String, Long> kafkaTemplate;
+    public void sendFSC(FuelStationRequest dto) {
+        kafkaTemplateObject.send("fsc-topic", dto);
+    }
+
 
     public void sendRotta(Long missionId) {
-        kafkaTemplate.send("sc-topic", missionId);
+        kafkaTemplateLong.send("sc-topic", missionId);
     }
 
 }
