@@ -1,6 +1,7 @@
 package com.example.navecom.controller;
 
 import com.example.navecom.payload.request.FuelStationRequest;
+import com.example.navecom.payload.response.FuelStationResponse;
 import com.example.navecom.service.MissionService;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
@@ -33,7 +34,9 @@ public class ControllerV1 {
     }
 
     @GetMapping("/fscontrol")
-    public void getFSControl(@Valid @RequestBody FuelStationRequest dto) {
-        missionService.sendFSC(dto);
+    public ResponseEntity<String> getFSControl(@Valid @RequestBody FuelStationRequest request) {
+        FuelStationResponse response = new FuelStationResponse(request);
+        missionService.sendFSC(response);
+        return ResponseEntity.ok("Dati inviati");
     }
 }

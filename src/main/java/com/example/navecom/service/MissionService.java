@@ -1,6 +1,7 @@
 package com.example.navecom.service;
 
 import com.example.navecom.payload.request.FuelStationRequest;
+import com.example.navecom.payload.response.FuelStationResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
@@ -17,8 +18,8 @@ public class MissionService {
 
     }
 
-    public void sendFSC(FuelStationRequest dto) {
-        kafkaTemplateObject.send("fsc-topic", dto);
+    public void sendFSC(FuelStationResponse response) {
+        kafkaTemplateObject.send("fsc-topic", response);
     }
 
 
