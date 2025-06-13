@@ -17,4 +17,11 @@ public class ControllerV1 {
         return ResponseEntity.ok("Mission ID sent: " + missionId);
     }
 
+
+    @GetMapping("/checkRotta/{missionId}")
+    public ResponseEntity<String> checkRotta(@RequestParam long missionId) {
+        missionService.sendRotta(missionId);
+        return ResponseEntity.ok("Rotta inviata: " + missionId);
+
+    }
 }
